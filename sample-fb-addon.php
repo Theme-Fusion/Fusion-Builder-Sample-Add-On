@@ -138,7 +138,7 @@ if ( ! class_exists( 'SampleAddonFB' ) ) {
 				$message .= '<span><span class="fb-heading">Sample Addon for Fusion Builder could not be activated</span>';
 				$message .= '<span>Sample Addon for Fusion Builder can only be activated if Fusion Builder 1.0 or higher is activated. Click the link below to install/activate Fusion Builder, then you can activate this plugin.</span>';
 				$message .= '<a class="fb-link" href="' . admin_url( 'admin.php?page=avada-plugins' ) . '">' . esc_attr__( 'Go to the Avada plugin installation page', 'Avada' ) . '</a></span>';
-				wp_die( $message );
+				wp_die( wp_kses_post( $message ) );
 			}
 		}
 	}
