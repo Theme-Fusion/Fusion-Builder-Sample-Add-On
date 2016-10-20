@@ -12,17 +12,15 @@
 		_.each( shortcode_matches, function ( inner_item ) {
 
 			if ( counter < 3 ) {
-				var
-				shortcode_element = inner_item.match( shortcode_inner_reg_exp ),
-				shortcode_content = shortcode_element[5],
-				tab_icon = '',
-				shortcode_attributes = shortcode_element[3] !== '' ? window.wp.shortcode.attrs( shortcode_element[3] ) : '';
+				var shortcode_element = inner_item.match( shortcode_inner_reg_exp ),
+				    shortcode_content = shortcode_element[5],
+				    tab_icon = '',
+				    shortcode_attributes = shortcode_element[3] !== '' ? window.wp.shortcode.attrs( shortcode_element[3] ) : '';
 				#>
 				<li style="text-align: left;">
 					{{ shortcode_attributes.named['title'] }}
 				</li>
-
-			<#
+				<#
 			}
 
 			counter++;
@@ -31,9 +29,7 @@
 
 		if ( counter > 3 ) { #>
 			<span>...</span>
-		<#
-		}
-		#>
+		<# } #>
 	</ul>
 
 </script>

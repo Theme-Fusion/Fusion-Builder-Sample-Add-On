@@ -1,13 +1,14 @@
 <?php
-
-/*
-Plugin Name: Sample Addon for Fusion Builder
-Plugin URI: https://github.com/Theme-Fusion/Fusion-Builder-Sample-Add-On
-Description: Adds quotes rotator element using this sample addon for fusion builder.
-Version: 1.0
-Author: ThemeFusion
-Author URI: https://www.theme-fusion.com
-*/
+/**
+ * Plugin Name: Sample Addon for Fusion Builder
+ * Plugin URI: https://github.com/Theme-Fusion/Fusion-Builder-Sample-Add-On
+ * Description: Adds quotes rotator element using this sample addon for fusion builder.
+ * Version: 1.0
+ * Author: ThemeFusion
+ * Author URI: https://www.theme-fusion.com
+ *
+ * @package Sample Addon for Fusion Builder
+ */
 
 // Plugin Folder Path.
 if ( ! defined( 'SAMPLE_ADDON_PLUGIN_DIR' ) ) {
@@ -17,7 +18,12 @@ if ( ! defined( 'SAMPLE_ADDON_PLUGIN_DIR' ) ) {
 register_activation_hook( __FILE__, array( 'SampleAddonFB', 'activation' ) );
 
 if ( ! class_exists( 'SampleAddonFB' ) ) {
+
+	/**
+	 * The main plugin class.
+	 */
 	class SampleAddonFB {
+
 		/**
 		 * The one, true instance of this object.
 		 *
@@ -44,7 +50,12 @@ if ( ! class_exists( 'SampleAddonFB' ) ) {
 			return self::$instance;
 		}
 
-		function __construct() {
+		/**
+		 * Constructor.
+		 *
+		 * @since 1.0
+		 */
+		public function __construct() {
 
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
@@ -53,13 +64,30 @@ if ( ! class_exists( 'SampleAddonFB' ) ) {
 
 		}
 
-		function enqueue_scripts(){
-			wp_enqueue_script( "modernizr-js", plugins_url( "js/modernizr.custom.js", __FILE__ ) );
-			wp_enqueue_script( "rotator-js", plugins_url( "js/rotator.js", __FILE__ ), array('jquery'), '', true );
-			wp_enqueue_style( "rotator-css", plugins_url( "css/rotator.css", __FILE__ ) );
+		/**
+		 * Enqueue scripts & styles.
+		 *
+		 * @access public
+		 * @since 1.0
+		 */
+		public function enqueue_scripts() {
+
+			wp_enqueue_script( 'modernizr-js', plugins_url( 'js/modernizr.custom.js', __FILE__ ) );
+			wp_enqueue_script( 'rotator-js', plugins_url( 'js/rotator.js', __FILE__ ), array( 'jquery' ), '', true );
+			wp_enqueue_style( 'rotator-css', plugins_url( 'css/rotator.css', __FILE__ ) );
+
 		}
 
-		function fusion_quotes( $atts, $content ){
+		/**
+		 * Returns the content.
+		 *
+		 * @access public
+		 * @since 1.0
+		 * @param array  $atts    The attributes array.
+		 * @param string $content The content.
+		 * @return string
+		 */
+		public function fusion_quotes( $atts, $content ) {
 
 			$unique_class = 'cbp-' . rand();
 			$html = '<style type="text/css">';
@@ -74,7 +102,16 @@ if ( ! class_exists( 'SampleAddonFB' ) ) {
 			return $html;
 		}
 
-		function fusion_quote( $atts, $content ) {
+		/**
+		 * Returns the content.
+		 *
+		 * @access public
+		 * @since 1.0
+		 * @param array  $atts    The attributes array.
+		 * @param string $content The content.
+		 * @return string
+		 */
+		public function fusion_quote( $atts, $content ) {
 
 			$html = '<div class="cbp-qtcontent">';
 			$html .= '<img src="' . $atts['image'] . '" />';
@@ -85,6 +122,7 @@ if ( ! class_exists( 'SampleAddonFB' ) ) {
 			$html .= '</div>';
 
 			return $html;
+
 		}
 
 		/**
@@ -120,10 +158,11 @@ if ( ! class_exists( 'SampleAddonFB' ) ) {
  *
  * @since 1.0
  */
-function map_sample_addon_with_fb(){
+function map_sample_addon_with_fb() {
 
 	// Map settings for parent shortcode.
-	fusion_builder_map( array(
+	fusion_builder_map(
+		array(
 			'name'          => esc_attr__( 'Quotes Rotator ( Sample Addon )', 'fusion-builder' ),
 			'shortcode'     => 'fusion_quotes',
 			'multi'         => 'multi_element_parent',
@@ -141,36 +180,37 @@ function map_sample_addon_with_fb(){
 				),
 				array(
 					'type'          => 'colorpicker',
-					'heading'    	=> __('Border Color', 'fusion-builder'),
-					'param_name'    => "color_border",
+					'heading'    	=> __( 'Border Color', 'fusion-builder' ),
+					'param_name'    => 'color_border',
 					'value'         => '#47a3da',
-					'description'   => __('Set the progress bar border color.', 'fusion-builder'),
+					'description'   => __( 'Set the progress bar border color.', 'fusion-builder' ),
 				),
 				array(
 					'type'          => 'colorpicker',
-					'heading'    	=> __('Quote Text Color', 'fusion-builder'),
-					'param_name'    => "color_quote_text",
+					'heading'    	=> __( 'Quote Text Color', 'fusion-builder' ),
+					'param_name'    => 'color_quote_text',
 					'value'         => '#666666',
-					'description'   => __('Set the quote text color.', 'fusion-builder'),
+					'description'   => __( 'Set the quote text color.', 'fusion-builder' ),
 				),
 				array(
 					'type'          => 'colorpicker',
-					'heading'    	=> __('Quote Title Color', 'fusion-builder'),
-					'param_name'    => "color_quote_title",
+					'heading'    	=> __( 'Quote Title Color', 'fusion-builder' ),
+					'param_name'    => 'color_quote_title',
 					'value'         => '#47a3da',
-					'description'   => __('Set the quote title color.', 'fusion-builder'),
+					'description'   => __( 'Set the quote title color.', 'fusion-builder' ),
 				),
-			)
+			),
 		)
 	);
 
 	// Map settings for child shortcode.
-	fusion_builder_map( array(
-			'name'          => esc_attr__( 'Quote', 'fusion-builder' ),
-			'shortcode'     => 'fusion_quote',
+	fusion_builder_map(
+		array(
+			'name'              => esc_attr__( 'Quote', 'fusion-builder' ),
+			'shortcode'         => 'fusion_quote',
 			'hide_from_builder' => true,
 			'allow_generator'   => true,
-			'params'        => array(
+			'params'            => array(
 				array(
 					'heading'     => __( 'Image', 'fusion-builder' ),
 					'description' => __( 'Upload the image you would like to use for this quote.', 'fusion-builder' ),
@@ -194,7 +234,7 @@ function map_sample_addon_with_fb(){
 					'value'       => 'Your Content Goes Here',
 					'placeholder' => true,
 				),
-			)
+			),
 		)
 	);
 

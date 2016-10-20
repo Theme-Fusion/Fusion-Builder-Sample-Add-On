@@ -1,0 +1,35 @@
+## Customize the test machine
+machine:
+
+  timezone:
+    America/Los_Angeles # Set the timezone
+
+  # Version of ruby to use
+  php:
+    version:
+      5.6.17
+
+## Customize dependencies
+dependencies:
+  pre:
+    - git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git /tmp/phpcs
+    - git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git /tmp/sniffs
+    - git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git /tmp/sniffs/PHPCompatibility
+    - /tmp/phpcs/scripts/phpcs --config-set installed_paths /tmp/sniffs
+    - phpenv rehash
+    - npm install -g jscs
+    - npm install -g jshint
+    - wget https://develop.svn.wordpress.org/trunk/.jshintrc
+    - if [ ! -d /opt/circleci/php/$(phpenv global)/etc ]; then mkdir /opt/circleci/php/$(phpenv global)/etc; fi
+    - if [ ! -d /opt/circleci/php/$(phpenv global)/etc/conf.d ]; then mkdir /opt/circleci/php/$(phpenv global)/etc/conf.d; fi
+    - if [ ! -f /opt/circleci/php/$(phpenv global)/etc/conf.d/php.ini ]; then touch /opt/circleci/php/$(phpenv global)/etc/conf.d/php.ini; fi
+    - echo "memory_limit = 512M" >> /opt/circleci/php/$(phpenv global)/etc/php.ini
+    - echo "memory_limit = 512M" >> /opt/circleci/php/$(phpenv global)/etc/conf.d/php.ini
+
+## Customize test commands
+test:
+  override:
+    - find . \( -name '*.php' \) -exec php -lf {} \;
+    - jshint ./js/rotator.js
+    - jscs ./js/rotator.js
+    - /tmp/phpcs/scripts/phpcs -p -s -v -n *.php --standard=./phpcs.ruleset.xml --extensions=php

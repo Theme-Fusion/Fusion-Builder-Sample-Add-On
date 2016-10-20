@@ -1,0 +1,6 @@
+/admin/.DS_Store
+.DS_Store
+/node_modules/
+/.idea/
+/log.txt
+npm-debug.log
