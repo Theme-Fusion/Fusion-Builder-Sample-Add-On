@@ -1,6 +1,6 @@
 <script type="text/template" id="fusion-builder-block-module-sample-addon-preview-template">
 	<h4 class="fusion_module_title"><span class="fusion-module-icon {{ fusionAllElements[element_type].icon }}"></span>{{ fusionAllElements[element_type].name }}</h4>
-	<ul style="display: inline-block;">
+	<ul>
 		<#
 		var
 		content = typeof params.element_content !== 'undefined' ? params.element_content : '',
@@ -17,7 +17,7 @@
 				    tab_icon = '',
 				    shortcode_attributes = shortcode_element[3] !== '' ? window.wp.shortcode.attrs( shortcode_element[3] ) : '';
 				#>
-				<li style="text-align: left;">
+				<li>
 					{{ shortcode_attributes.named['title'] }}
 				</li>
 				<#
