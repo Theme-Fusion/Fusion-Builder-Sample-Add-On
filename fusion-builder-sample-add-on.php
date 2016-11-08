@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Sample Addon for Fusion Builder
+ * Plugin Name: Fusion Builder Sample Addon
  * Plugin URI: https://github.com/Theme-Fusion/Fusion-Builder-Sample-Add-On
  * Description: Adds quotes rotator element using this sample addon for fusion builder.
  * Version: 1.0
