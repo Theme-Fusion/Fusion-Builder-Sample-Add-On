@@ -91,7 +91,7 @@ if ( ! class_exists( 'SampleAddonFB' ) ) {
 
 			$unique_class = 'cbp-' . rand();
 			$html = '<style type="text/css">';
-			$html .= '.' . $unique_class . ' .cbp-qtprogress { background-color: ' . $atts['color_border'] . '; }';
+			$html .= '.' . $unique_class . ' .cbp-qtprogress { background-color: ' . $atts['color_progress_bar'] . '; }';
 			$html .= '.' . $unique_class . ' footer { color: ' . $atts['color_quote_title'] . '; }';
 			$html .= '.' . $unique_class . ' .blockquote p { color: ' . $atts['color_quote_text'] . '; }';
 			$html .= '</style>';
@@ -180,10 +180,10 @@ function map_sample_addon_with_fb() {
 				),
 				array(
 					'type'          => 'colorpicker',
-					'heading'    	=> __( 'Border Color', 'fusion-builder' ),
-					'param_name'    => 'color_border',
+					'heading'    	=> __( 'Progress Bar Color', 'fusion-builder' ),
+					'param_name'    => 'color_progress_bar',
 					'value'         => '#47a3da',
-					'description'   => __( 'Set the progress bar border color.', 'fusion-builder' ),
+					'description'   => __( 'Set the progress bar color.', 'fusion-builder' ),
 				),
 				array(
 					'type'          => 'colorpicker',
