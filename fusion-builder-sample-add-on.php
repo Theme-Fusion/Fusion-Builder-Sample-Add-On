@@ -62,6 +62,22 @@ if ( ! class_exists( 'SampleAddonFB' ) ) {
 			add_shortcode( 'fusion_quotes', array( $this, 'fusion_quotes' ) );
 			add_shortcode( 'fusion_quote', array( $this, 'fusion_quote' ) );
 
+			// Add new settings field to Fusion Builder.
+			add_filter( 'fusion_builder_fields', array( $this, 'add_new_field' ) );
+
+		}
+
+		/**
+		 * Add new radio_image setting field to Fusion Builder.
+		 *
+		 * @access public
+		 * @since 1.0
+		 * @param array $fields The array of fields added with filter.
+		 * @return array
+		 */
+		public function add_new_field( $fields ) {
+			$fields[] = array( 'radio_image', SAMPLE_ADDON_PLUGIN_DIR . 'fields/radio_image.php' );
+			return $fields;
 		}
 
 		/**
@@ -94,6 +110,10 @@ if ( ! class_exists( 'SampleAddonFB' ) ) {
 			$html .= '.' . $unique_class . ' .cbp-qtprogress { background-color: ' . $atts['color_progress_bar'] . '; }';
 			$html .= '.' . $unique_class . ' footer { color: ' . $atts['color_quote_title'] . '; }';
 			$html .= '.' . $unique_class . ' .blockquote p { color: ' . $atts['color_quote_text'] . '; }';
+			if ( isset( $atts['bg_pattern'] ) && '' !== $atts['bg_pattern'] ) {
+				$html .= '.' . $unique_class . '.cbp-qtrotator { background: url(' .  plugins_url( '\/img/' . $atts['bg_pattern'] . '.png', __FILE__ ) . '); }';
+				$html .= '.' . $unique_class . '.cbp-qtrotator .cbp-qtcontent { padding-left: 15px; padding-right: 15px; }';
+			}
 			$html .= '</style>';
 			$html .= '<div class="cbp-qtrotator ' . $unique_class . '">';
 			$html .= do_shortcode( $content );
@@ -139,6 +159,9 @@ if ( ! class_exists( 'SampleAddonFB' ) ) {
 				$message .= '<span>Sample Addon for Fusion Builder can only be activated if Fusion Builder 1.0 or higher is activated. Click the link below to install/activate Fusion Builder, then you can activate this plugin.</span>';
 				$message .= '<a class="fb-link" href="' . admin_url( 'admin.php?page=avada-plugins' ) . '">' . esc_attr__( 'Go to the Avada plugin installation page', 'Avada' ) . '</a></span>';
 				wp_die( wp_kses_post( $message ) );
+			} else {
+				// Example of adding custom saved elements to the library on plugin activation.
+				require_once( 'saved-templates/saved-elements.php' );
 			}
 		}
 	}
@@ -199,6 +222,25 @@ function map_sample_addon_with_fb() {
 					'value'         => '#47a3da',
 					'description'   => __( 'Set the quote title color.', 'fusion-builder' ),
 				),
+				array(
+					'type'        => 'radio_image',
+					'heading'     => esc_attr__( 'Background Pattern', 'fusion-builder' ),
+					'description' => esc_attr__( 'Select the image to be used for background pattern.', 'fusion-builder' ),
+					'param_name'  => 'bg_pattern',
+					'default'     => '',
+					'value'       => array(
+						'pattern1' 	=> plugins_url( '/img/pattern1.png', __FILE__ ),
+						'pattern2' 	=> plugins_url( '/img/pattern2.png', __FILE__ ),
+						'pattern3' 	=> plugins_url( '/img/pattern3.png', __FILE__ ),
+						'pattern4' 	=> plugins_url( '/img/pattern4.png', __FILE__ ),
+						'pattern5' 	=> plugins_url( '/img/pattern5.png', __FILE__ ),
+						'pattern6' 	=> plugins_url( '/img/pattern6.png', __FILE__ ),
+						'pattern7' 	=> plugins_url( '/img/pattern7.png', __FILE__ ),
+						'pattern8' 	=> plugins_url( '/img/pattern8.png', __FILE__ ),
+						'pattern9' 	=> plugins_url( '/img/pattern9.png', __FILE__ ),
+						'pattern10' => plugins_url( '/img/pattern10.png', __FILE__ ),
+					),
+				),
 			),
 		)
 	);
@@ -238,6 +280,14 @@ function map_sample_addon_with_fb() {
 		)
 	);
 
+
+	// Example of how to add or modify options to existing element in Fusion Builder.
+	if ( function_exists( 'fusion_builder_update_element' ) ) {
+		fusion_builder_update_element( 'fusion_button', 'color', array( 'cyan' => esc_attr__( 'New - Cyan', 'fusion-builder' ) ) );
+		fusion_builder_update_element( 'fusion_button', 'color', array( 'black' => esc_attr__( 'New - Black', 'fusion-builder' ) ) );
+		fusion_builder_update_element( 'fusion_button', 'element_content', 'Sample Button' );
+	}
+
 }
 
-add_action( 'fusion_builder_before_init', 'map_sample_addon_with_fb', 3 );
+add_action( 'fusion_builder_before_init', 'map_sample_addon_with_fb', 11 );

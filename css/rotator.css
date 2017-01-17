@@ -74,6 +74,18 @@
 	margin-left: 3em;
 }
 
+/* Custom button styling */
+.fusion-button.button-cyan {
+    background: cyan;
+}
+.fusion-button.button-black {
+    background: #333;
+		color: #fff;
+}
+.fusion-button.button-black:hover {
+	color: #d4d4d4;
+}
+
 /* Example for media query */
 @media screen and (max-width: 30.6em) {
 
