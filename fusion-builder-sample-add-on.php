@@ -111,7 +111,7 @@ if ( ! class_exists( 'SampleAddonFB' ) ) {
 			$html .= '.' . $unique_class . ' footer { color: ' . $atts['color_quote_title'] . '; }';
 			$html .= '.' . $unique_class . ' .blockquote p { color: ' . $atts['color_quote_text'] . '; }';
 			if ( isset( $atts['bg_pattern'] ) && '' !== $atts['bg_pattern'] ) {
-				$html .= '.' . $unique_class . '.cbp-qtrotator { background: url(' .  plugins_url( '\/img/' . $atts['bg_pattern'] . '.png', __FILE__ ) . '); }';
+				$html .= '.' . $unique_class . '.cbp-qtrotator { background: url(' . plugins_url( '\/img/' . $atts['bg_pattern'] . '.png', __FILE__ ) . '); }';
 				$html .= '.' . $unique_class . '.cbp-qtrotator .cbp-qtcontent { padding-left: 15px; padding-right: 15px; }';
 			}
 			$html .= '</style>';
@@ -279,7 +279,6 @@ function map_sample_addon_with_fb() {
 			),
 		)
 	);
-
 
 	// Example of how to add or modify options to existing element in Fusion Builder.
 	if ( function_exists( 'fusion_builder_update_element' ) ) {
