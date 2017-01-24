@@ -3,7 +3,7 @@
  * Plugin Name: Fusion Builder Sample Addon
  * Plugin URI: https://github.com/Theme-Fusion/Fusion-Builder-Sample-Add-On
  * Description: Adds quotes rotator element using this sample addon for fusion builder.
- * Version: 1.0
+ * Version: 1.1
  * Author: ThemeFusion
  * Author URI: https://www.theme-fusion.com
  *
@@ -71,7 +71,7 @@ if ( ! class_exists( 'SampleAddonFB' ) ) {
 		 * Add new radio_image setting field to Fusion Builder.
 		 *
 		 * @access public
-		 * @since 1.0
+		 * @since 1.1
 		 * @param array $fields The array of fields added with filter.
 		 * @return array
 		 */
@@ -290,3 +290,18 @@ function map_sample_addon_with_fb() {
 }
 
 add_action( 'fusion_builder_before_init', 'map_sample_addon_with_fb', 11 );
+
+/**
+ * Include options from options folder.
+ *
+ * @access public
+ * @since 1.1
+ * @return void
+ */
+function fusion_init_sample_options() {
+
+	require_once 'options/sample-options.php';
+
+}
+
+add_action( 'fusion_builder_shortcodes_init', 'fusion_init_sample_options' );
