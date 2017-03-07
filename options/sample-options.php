@@ -30,7 +30,7 @@ if ( class_exists( 'Fusion_Element' ) ) {
       return array(
         'sample_shortcode_section' => array(
           'label'       => esc_html__( 'Sample Element', 'fusion-builder' ),
-          'description' => '',
+          'description' => 'This is sample description for section.',
           'id'          => 'sample_shortcode_section',
           'type'        => 'sub-section',
           'fields'      => array(
