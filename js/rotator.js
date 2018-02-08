@@ -14,7 +14,7 @@
 
 	// Global
 	var Modernizr = window.Modernizr,
-	    logError;
+		logError;
 
 	$.CBPQTRotator = function( options, element ) {
 		this.$el = $( element );
@@ -149,19 +149,19 @@
 					return;
 				}
 				instance[ options ].apply( instance, args );
-			});
+			} );
 		} else {
-			this.each(function() {
+			this.each( function() {
 				var instance = $.data( this, 'cbpQTRotator' );
 				if ( instance ) {
 					instance._init();
 				} else {
 					instance = $.data( this, 'cbpQTRotator', new $.CBPQTRotator( options, this ) );
 				}
-			});
+			} );
 		}
 		return this;
 	};
 
-} )( jQuery, window );
+} ( jQuery, window ) );
 jQuery( '.cbp-qtrotator' ).cbpQTRotator();

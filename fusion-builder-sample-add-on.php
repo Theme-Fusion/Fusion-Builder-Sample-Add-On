@@ -3,7 +3,7 @@
  * Plugin Name: Fusion Builder Sample Addon
  * Plugin URI: https://github.com/Theme-Fusion/Fusion-Builder-Sample-Add-On
  * Description: Adds quotes rotator element using this sample addon for fusion builder.
- * Version: 1.1
+ * Version: 1.2
  * Author: ThemeFusion
  * Author URI: https://www.theme-fusion.com
  *
@@ -22,7 +22,9 @@ if ( ! class_exists( 'Sample_Addon_FB' ) ) {
 	// Include the main plugin class.
 	include_once wp_normalize_path( SAMPLE_ADDON_PLUGIN_DIR . '/inc/class-sample-addon-fb.php' );
 
-	// Instantiate Sample_Addon_FB class.
+	/**
+	 * Instantiate Sample_Addon_FB class.
+	 */
 	function sample_addon_activate() {
 		Sample_Addon_FB::get_instance();
 	}

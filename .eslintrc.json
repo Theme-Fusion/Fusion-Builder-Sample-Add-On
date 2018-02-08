@@ -1,0 +1,7 @@
+{
+	"extends": "wordpress",
+  "rules": {
+    "space-in-parens": ["error", "always"],
+    "camelcase": ["error", { "properties": "never" }]
+  }
+}

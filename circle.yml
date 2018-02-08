@@ -28,7 +28,7 @@ dependencies:
 test:
   override:
     # Check for PHP errors.
-    - find . \( -name '*.php' \) -exec php -lf {} \;
+    - find . \( -name '*.php' \) -not -path "./vendor/*" -exec php -lf {} \;
     # ESLint JS files.
     - eslint ./js/rotator.js
     # Check coding-standards.
