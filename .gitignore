@@ -4,3 +4,4 @@ node_modules
 log.txt
 npm-debug.log
 vendor
+composer.lock
