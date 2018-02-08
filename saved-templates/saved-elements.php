@@ -9,8 +9,8 @@
 $elements = array();
 
 $elements[] = array(
-  'layout_name' => 'Confidence Quotes',
-  'content' => <<<CONTENT
+	'layout_name' => 'Confidence Quotes',
+	'content' => <<<CONTENT
 [fusion_quotes color_progress_bar="#e91e63" color_quote_text="#ffffff" color_quote_title="#fff4af" bg_pattern="pattern10"][fusion_quote title="Golda Meir"]
 
 Trust yourself. Create the kind of self that you will be happy to live with all your life.
@@ -28,8 +28,8 @@ CONTENT
 );
 
 $elements[] = array(
-  'layout_name' => 'Technology Quotes',
-  'content' => <<<CONTENT
+	'layout_name' => 'Technology Quotes',
+	'content' => <<<CONTENT
 [fusion_quotes color_progress_bar="#a31366" color_quote_text="#002f51" color_quote_title="#3e5921" bg_pattern="pattern8"][fusion_quote title="Thomas Sowell"]
 
 The march of science and technology does not imply growing intellectual complexity in the lives of most people. It often means the opposite.
@@ -56,7 +56,7 @@ CONTENT
 
 
 if ( function_exists( 'fusion_builder_create_layout' ) ) {
-  foreach ($elements as $key => $element ) {
-    fusion_builder_create_layout( 'fusion_element', $element['layout_name'], $element['content'], '', 'element_category', 'elements' );
-  }
+	foreach ( $elements as $key => $element ) {
+		fusion_builder_create_layout( 'fusion_element', $element['layout_name'], $element['content'], '', 'element_category', 'elements' );
+	}
 }
