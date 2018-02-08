@@ -1,0 +1,17 @@
+{
+  "name": "Theme-Fusion/Fusion-Builder-Sample-Add-On",
+  "type": "wordpress-plugin",
+  "description": "Fusion-Builder Sample Add-On Plugin",
+  "homepage": "https://theme-fusion.com",
+  "license": "GPLv2 or later",
+  "require": {
+    "php": ">=5.2",
+    "composer/installers": "~1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.8",
+    "dealerdirect/phpcodesniffer-composer-installer": "*",
+    "wimg/php-compatibility": "*",
+    "wp-coding-standards/wpcs": "*"
+  }
+}

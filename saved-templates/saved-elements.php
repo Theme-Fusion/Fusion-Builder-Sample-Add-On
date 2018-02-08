@@ -1,4 +1,11 @@
 <?php
+/**
+ * Saved Elements.
+ *
+ * @since 1.2
+ * @package Sample Addon for Fusion Builder
+ */
+
 $elements = array();
 
 $elements[] = array(

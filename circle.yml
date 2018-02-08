@@ -1,6 +1,9 @@
 ## Customize the test machine
 machine:
 
+  node:
+    version: 9.4.0
+
   timezone:
     America/Los_Angeles # Set the timezone
 
@@ -12,14 +15,9 @@ machine:
 ## Customize dependencies
 dependencies:
   pre:
-    - git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git /tmp/phpcs
-    - git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git /tmp/sniffs
-    - git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git /tmp/sniffs/PHPCompatibility
-    - /tmp/phpcs/scripts/phpcs --config-set installed_paths /tmp/sniffs
     - phpenv rehash
-    - npm install -g jscs
-    - npm install -g jshint
-    - wget https://develop.svn.wordpress.org/trunk/.jshintrc
+    - npm install -g eslint
+    - npm install -g eslint-config-wordpress
     - if [ ! -d /opt/circleci/php/$(phpenv global)/etc ]; then mkdir /opt/circleci/php/$(phpenv global)/etc; fi
     - if [ ! -d /opt/circleci/php/$(phpenv global)/etc/conf.d ]; then mkdir /opt/circleci/php/$(phpenv global)/etc/conf.d; fi
     - if [ ! -f /opt/circleci/php/$(phpenv global)/etc/conf.d/php.ini ]; then touch /opt/circleci/php/$(phpenv global)/etc/conf.d/php.ini; fi
@@ -29,7 +27,9 @@ dependencies:
 ## Customize test commands
 test:
   override:
+    # Check for PHP errors.
     - find . \( -name '*.php' \) -exec php -lf {} \;
-    - jshint ./js/rotator.js
-    - jscs ./js/rotator.js
-    - /tmp/phpcs/scripts/phpcs -p -s -v -n *.php --standard=./phpcs.ruleset.xml --extensions=php
+    # ESLint JS files.
+    - eslint ./js/rotator.js
+    # Check coding-standards.
+    - vendor/bin/phpcs -p -s -v -n *.php --standard=./phpcs.ruleset.xml --extensions=php
