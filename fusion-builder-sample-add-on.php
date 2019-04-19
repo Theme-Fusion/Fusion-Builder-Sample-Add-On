@@ -25,8 +25,14 @@ register_activation_hook( __FILE__, array( 'Sample_Addon_FB', 'activation' ) );
 if ( ! class_exists( 'Sample_Addon_FB' ) ) {
 
 	// Init the elements.
-	function init_elements() {
+	function my_init_elements() {
 		include_once wp_normalize_path( SAMPLE_ADDON_PLUGIN_DIR . '/elements/hello-world.php' );
 	}
-	add_action( 'fusion_builder_shortcodes_init', 'init_elements', 10 );
+	add_action( 'fusion_builder_shortcodes_init', 'my_init_elements', 10 );
+
+
+	function my_enqueue_scripts() {
+		wp_enqueue_style( 'my-elements', SAMPLE_ADDON_PLUGIN_URL . 'css/my-elements.css', false, false );
+	}
+	add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts', 10 );
 }
