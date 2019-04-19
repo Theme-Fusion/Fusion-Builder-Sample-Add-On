@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Fusion Builder Sample Addon
+ * Plugin Name: Fusion Builder Front-End Sample Addon
  * Plugin URI: https://github.com/Theme-Fusion/Fusion-Builder-Sample-Add-On
- * Description: Adds quotes rotator element using this sample addon for fusion builder.
+ * Description: Adds simple hello world example of front-end API.
  * Version: 1.2
  * Author: ThemeFusion
  * Author URI: https://www.theme-fusion.com
@@ -28,5 +28,5 @@ if ( ! class_exists( 'Sample_Addon_FB' ) ) {
 	function init_elements() {
 		include_once wp_normalize_path( SAMPLE_ADDON_PLUGIN_DIR . '/elements/hello-world.php' );
 	}
-	add_action( 'init', 'init_elements', 10 );
+	add_action( 'fusion_builder_shortcodes_init', 'init_elements', 10 );
 }

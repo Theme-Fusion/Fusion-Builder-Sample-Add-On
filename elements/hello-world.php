@@ -35,6 +35,7 @@ if ( fusion_is_element_enabled( 'hello_world' ) ) {
 				parent::__construct();
 				add_filter( 'fusion_attr_hello-main-wrapper', [ $this, 'attr' ] );
 				add_shortcode( 'hello_world', [ $this, 'render' ] );
+				add_action( 'fusion_builder_enqueue_live_scripts', [ $this, 'load_front_end_view' ] );
 
 			}
 
@@ -125,10 +126,7 @@ if ( fusion_is_element_enabled( 'hello_world' ) ) {
 			 */
 			public function attr() {
 				$attr = [
-					'style' => [
-						'color'            => $this->args['color'],
-						'background-color' => $this->args['background'],
-					],
+					'style' => 'color: ' . $this->args['color'] . '; background-color:' . $this->args['background'],
 				];
 
 				return $attr;
@@ -164,7 +162,7 @@ if ( fusion_is_element_enabled( 'hello_world' ) ) {
 							'hello_background' => [
 								'label'       => esc_attr__( 'Hello World Background Color', 'hello-world' ),
 								'description' => esc_attr__( 'Set the background color global for hello world.', 'hello-world' ),
-								'id'          => 'hello_color',
+								'id'          => 'hello_background',
 								'default'     => '#ffa737',
 								'type'        => 'color-alpha',
 								'transport'   => 'postMessage',
@@ -182,6 +180,17 @@ if ( fusion_is_element_enabled( 'hello_world' ) ) {
 			 * @return void
 			 */
 			public function add_scripts() {
+			}
+
+			/**
+			 * Load the custom view which send data to template.
+			 *
+			 * @access public
+			 * @since 1.1
+			 * @return void
+			 */
+			public function load_front_end_view() {
+				wp_enqueue_script( 'hello_world_view', SAMPLE_ADDON_PLUGIN_URL . 'elements/front-end/hello-world.js', '1.0', true, true );
 			}
 		}
 	}
@@ -205,7 +214,10 @@ function hello_world() {
 				'name'                     => esc_attr__( 'Hello World', 'hello-world' ),
 				'shortcode'                => 'hello_world',
 				'icon'                     => 'fusiona-exclamation-triangle',
+
+				// Template that is used on front-end.
 				'front-end'                => SAMPLE_ADDON_PLUGIN_DIR . '/elements/front-end/hello-world.php',
+
 				'allow_generator'          => false,
 				'inline_editor'            => false,
 				'inline_editor_shortcodes' => false,
@@ -223,14 +235,14 @@ function hello_world() {
 						'heading'     => esc_attr__( 'Text Color', 'hello-world' ),
 						'description' => esc_attr__( 'Set the text color for the hello.', 'hello-world' ),
 						'param_name'  => 'color',
-						'value'       => $fusion_settings->get( 'hello_color' )
+						'value'       => $fusion_settings->get( 'hello_color' ) ? $fusion_settings->get( 'hello_color' ) : '#fff',
 					],
 					[
 						'type'        => 'colorpickeralpha',
 						'heading'     => esc_attr__( 'Background Color', 'hello-world' ),
 						'description' => esc_attr__( 'Set the background color for the hello.', 'hello-world' ),
 						'param_name'  => 'background',
-						'value'       => $fusion_settings->get( 'hello_background' )
+						'value'       => $fusion_settings->get( 'hello_background' ) ? $fusion_settings->get( 'hello_background' ) : '#333',
 					],
 				],
 			]
