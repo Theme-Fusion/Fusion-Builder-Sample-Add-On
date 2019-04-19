@@ -15,6 +15,10 @@ var FusionPageBuilder = FusionPageBuilder || {};
 			 * @returns {void}
 			 */
 			onRender: function() {
+				var $thisElement = jQuery( '#fb-preview' )[0].contentWindow.jQuery( this.$el );
+
+				// Try console logging the element, you can do custom init here for example.
+				// console.log( $thisElement );
 			},
 
 			/**
@@ -42,6 +46,10 @@ var FusionPageBuilder = FusionPageBuilder || {};
 			 * @returns {void}
 			 */
 			afterPatch: function() {
+				var $thisElement = jQuery( '#fb-preview' )[0].contentWindow.jQuery( this.$el );
+
+				// Try console logging the element, you can do custom init here for example.
+				// console.log( $thisElement );
 			},
 
 			/**
@@ -89,9 +97,16 @@ var FusionPageBuilder = FusionPageBuilder || {};
 			 * @returns {Object}
 			 */
 			buildWrapperAtts: function( values ) {
-				var wrapperAttributes = {
+				var self              = this,
+					wrapperAttributes = {
+						class: 'my-hello-world',
 						style: 'background-color:' + values.background + '; color:' + values.color
 					};
+
+				// Adds inline editing capability to the element.
+				wrapperAttributes = _.fusionInlineEditor( {
+					cid: self.model.get( 'cid' )
+				}, wrapperAttributes );
 
 				return wrapperAttributes;
 			}
