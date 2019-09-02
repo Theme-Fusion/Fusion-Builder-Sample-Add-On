@@ -75,9 +75,9 @@ class Sample_Addon_FB {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( 'modernizr-js', plugins_url( 'js/modernizr.custom.js', __FILE__ ) );
-		wp_enqueue_script( 'rotator-js', plugins_url( 'js/rotator.js', __FILE__ ), array( 'jquery' ), '', true );
-		wp_enqueue_style( 'rotator-css', plugins_url( 'css/rotator.css', __FILE__ ) );
+		wp_enqueue_script( 'modernizr-js', SAMPLE_ADDON_PLUGIN_DIR . 'js/modernizr.custom.js' );
+		wp_enqueue_script( 'rotator-js', SAMPLE_ADDON_PLUGIN_DIR . 'js/rotator.js', array( 'jquery' ), '', true );
+		wp_enqueue_style( 'rotator-css', SAMPLE_ADDON_PLUGIN_DIR . 'css/rotator.css' );
 
 	}
 
