@@ -12,4 +12,12 @@
 			<# } ); #>
 		</div>
 	<# } #>
+
+	<# if ( simpleRepeater ) { #>
+		<ul>
+			<# _.each( simpleRepeater, function( singleString ) { #>
+			<li>{{{ singleString }}}</li>
+			<# } ); #>
+		</ul>
+	<# } #>
 </script>

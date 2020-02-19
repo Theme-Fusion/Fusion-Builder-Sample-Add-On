@@ -74,6 +74,7 @@ var FusionPageBuilder = FusionPageBuilder || {};
 				templateVariables.wrapperAttributes = this.buildWrapperAtts( atts.values );
 				templateVariables.mainContent       = atts.values.element_content;
 				templateVariables.repeaterBoxes     = 'object' === typeof atts.values.repeater_example ? atts.values.repeater_example : false;
+				templateVariables.simpleRepeater    = 'object' === typeof atts.values.simple_repeater ? atts.values.simple_repeater : false;
 
 				return templateVariables;
 			},
@@ -94,6 +95,10 @@ var FusionPageBuilder = FusionPageBuilder || {};
 					}
 				} catch ( error ) {
 					console.log( error ); // jshint ignore:line
+				}
+
+				if ( '' !== values.simple_repeater ) {
+					values.simple_repeater = values.simple_repeater.split( '|' );
 				}
 			},
 

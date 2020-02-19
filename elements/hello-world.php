@@ -52,6 +52,7 @@ if ( fusion_is_element_enabled( 'hello_world' ) ) {
 					'color'            => $fusion_settings->get( 'hello_color' ),
 					'background'       => $fusion_settings->get( 'hello_background' ),
 					'repeater_example' => '',
+					'simple_repeater'  => '',
 				];
 			}
 
@@ -123,6 +124,15 @@ if ( fusion_is_element_enabled( 'hello_world' ) ) {
 						$html .= '</div>';
 					}
 					$html .= '</div>';
+				}
+
+				if ( '' !== $this->args['simple_repeater'] ) {
+					$html .= '<ul>';
+					(array) $strings = explode( '|', $this->args['simple_repeater'] );
+					foreach ( $strings as $single_string ) {
+						$html .= '<li>' . $single_string . '</li>';
+					}
+					$html .= '</ul>';
 				}
 				return $html;
 
@@ -273,6 +283,15 @@ function hello_world() {
 								'value'      => '',
 							],
 						],
+					],
+					[
+						'type'        => 'sortable_text',
+						'heading'     => esc_attr__( 'Simpler Repeater', 'fusion-builder' ),
+						'description' => esc_attr__( 'Add multiple strings', 'fusion-builder' ),
+						'param_name'  => 'simple_repeater',
+						'placeholder' => 'Repeater Text',
+						'add_label'   => 'Add Text',
+						'default'     => 'Text one|Text two',
 					],
 				],
 			]
