@@ -49,8 +49,9 @@ if ( fusion_is_element_enabled( 'hello_world' ) ) {
 				$fusion_settings = fusion_get_fusion_settings();
 
 				return [
-					'color'      => $fusion_settings->get( 'hello_color' ),
-					'background' => $fusion_settings->get( 'hello_background' ),
+					'color'            => $fusion_settings->get( 'hello_color' ),
+					'background'       => $fusion_settings->get( 'hello_background' ),
+					'repeater_example' => '',
 				];
 			}
 
@@ -111,6 +112,18 @@ if ( fusion_is_element_enabled( 'hello_world' ) ) {
 				$html .= wpautop( $content, false );
 				$html .= '</div>';
 
+				// Repeater example.
+				if ( '' !== $this->args['repeater_example'] ) {
+					$html .= '<div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">';
+					(array) $boxes = json_decode( fusion_decode_if_needed( $this->args['repeater_example'] ), true );
+					foreach ( $boxes as $box ) {
+						$html .= '<div>';
+						$html .= '<h3>' . ( isset( $box['box_title'] ) ? $box['box_title'] : '' ) . '</h3>';
+						$html .= wpautop( ( isset( $box['box_description'] ) ? $box['box_description'] : '' ), false );
+						$html .= '</div>';
+					}
+					$html .= '</div>';
+				}
 				return $html;
 
 			}
@@ -235,6 +248,31 @@ function hello_world() {
 						'description' => esc_attr__( 'Set the background color for the hello.', 'hello-world' ),
 						'param_name'  => 'background',
 						'default'     => $fusion_settings->get( 'hello_background' ) ? $fusion_settings->get( 'hello_background' ) : '#333',
+					],
+					[
+						'heading'     => esc_html__( 'Box Example', 'hello-world' ),
+						'description' => esc_html__( 'Title and background color', 'hello-world' ),
+						'param_name'  => 'repeater_example',
+						'default'     => [],
+						'type'        => 'repeater',
+						'bind_title'  => 'box_title',
+						'row_add'     => esc_html__( 'Add Box', 'hello-world' ),
+						'row_title'   => esc_html__( 'Box', 'hello-world' ),
+						'limit'       => 50,
+						'fields'      => [
+							'box_title'   => [
+								'param_name' => 'box_title',
+								'type'       => 'textfield',
+								'heading'    => esc_html__( 'Box Title','hello-world' ),
+								'value'      => '',
+							],
+							'box_description'   => [
+								'param_name' => 'box_description',
+								'type'       => 'textarea',
+								'heading'    => esc_html__( 'Box Description','hello-world' ),
+								'value'      => '',
+							],
+						],
 					],
 				],
 			]

@@ -73,6 +73,7 @@ var FusionPageBuilder = FusionPageBuilder || {};
 				// Attributes for our wrapping element.
 				templateVariables.wrapperAttributes = this.buildWrapperAtts( atts.values );
 				templateVariables.mainContent       = atts.values.element_content;
+				templateVariables.repeaterBoxes     = 'object' === typeof atts.values.repeater_example ? atts.values.repeater_example : false;
 
 				return templateVariables;
 			},
@@ -86,7 +87,14 @@ var FusionPageBuilder = FusionPageBuilder || {};
 			 */
 			validateValues: function( values ) {
 
-				// Note, atts.values is the combination of the defaults and the params.
+				// Decode the repeater value.
+				try {
+					if ( values.repeater_example && '' !== values.repeater_example && FusionPageBuilderApp.base64Encode( FusionPageBuilderApp.base64Decode( values.repeater_example ) ) === values.repeater_example ) {
+						values.repeater_example = JSON.parse( FusionPageBuilderApp.base64Decode( values.repeater_example ) );
+					}
+				} catch ( error ) {
+					console.log( error ); // jshint ignore:line
+				}
 			},
 
 			/**
