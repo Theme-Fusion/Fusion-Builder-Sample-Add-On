@@ -20,8 +20,6 @@ if ( ! defined( 'SAMPLE_ADDON_PLUGIN_URL' ) ) {
 	define( 'SAMPLE_ADDON_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
 
-register_activation_hook( __FILE__, array( 'Sample_Addon_FB', 'activation' ) );
-
 if ( ! class_exists( 'Sample_Addon_FB' ) ) {
 
 	// Init the elements.
@@ -32,7 +30,13 @@ if ( ! class_exists( 'Sample_Addon_FB' ) ) {
 
 
 	function my_enqueue_scripts() {
+		Fusion_Dynamic_CSS::enqueue_style( SAMPLE_ADDON_PLUGIN_DIR . 'css/my-elements.css', SAMPLE_ADDON_PLUGIN_URL . 'css/my-elements.css' );
+		/*
+		Using the above call will combined into the compiled CSS.  Alternatively you can enqueue separately with:
 		wp_enqueue_style( 'my-elements', SAMPLE_ADDON_PLUGIN_URL . 'css/my-elements.css', false, false );
+
+		In that case also change hook below from wp to wp_enqueue_scripts.
+		*/
 	}
-	add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts', 10 );
+	add_action( 'wp', 'my_enqueue_scripts', 10 );
 }
