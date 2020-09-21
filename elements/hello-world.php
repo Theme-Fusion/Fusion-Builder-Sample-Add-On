@@ -177,6 +177,28 @@ if ( fusion_is_element_enabled( 'hello_world' ) ) {
 			 * @return void
 			 */
 			public function add_scripts() {
+
+				/* For example.
+				Fusion_Dynamic_JS::enqueue_script(
+					'fusion-date-picker',
+					FUSION_BUILDER_PLUGIN_URL . 'assets/js/library/flatpickr.js',
+					FUSION_BUILDER_PLUGIN_URL . 'assets/js/library/flatpickr.js',
+					[ 'jquery' ],
+					'1',
+					true
+				);
+				*/
+			}
+
+			/**
+			 * Load element base CSS.
+			 *
+			 * @access public
+			 * @since 3.0
+			 * @return void
+			 */
+			public function add_css_files() {
+				FusionBuilder()->add_element_css( SAMPLE_ADDON_PLUGIN_DIR . 'css/my-elements.css' );
 			}
 		}
 	}
@@ -189,12 +211,14 @@ if ( fusion_is_element_enabled( 'hello_world' ) ) {
  *
  * @since 1.0
  */
-function hello_world() {
+function hello_world_map() {
 
 	$fusion_settings = fusion_get_fusion_settings();
 
 	fusion_builder_map(
 		fusion_builder_frontend_data(
+
+			// Class reference.
 			'MyHelloWorld',
 			[
 				'name'                     => esc_attr__( 'Hello World', 'hello-world' ),
@@ -241,4 +265,4 @@ function hello_world() {
 		)
 	);
 }
-add_action( 'fusion_builder_before_init', 'hello_world' );
+add_action( 'fusion_builder_before_init', 'hello_world_map' );
